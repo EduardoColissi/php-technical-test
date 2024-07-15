@@ -5,12 +5,11 @@ class UserController extends RenderView {
         $users = new UserModel();
 
         if(empty($users->fetchAll())) {
-            print_r('Creating initial data');
             $users->createInitialData();
         }
 
         $this->loadView('home', [
-            'title' => 'Home',
+            'title' => 'Usuários',
             'users' => $users->fetchAll()
         ]);
     }
