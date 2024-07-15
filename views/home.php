@@ -50,9 +50,6 @@
                         <a class="btn btn-danger button btn-delete-user" data-userid="<?php echo $user['id']; ?>">
                             <span class="iconify" data-icon="mdi:trash" data-inline="false"></span>
                         </a>
-                        <a class="btn btn-warning button">
-                            <span class="iconify" data-icon="mdi:eye" data-inline="false"></span>
-                        </a>
                     </td>
                 </tr>
                 <?php } ?>

@@ -49,9 +49,6 @@ $(document).ready(function () {
               }">
                 <span class="iconify" data-icon="mdi:trash" data-inline="false"></span>
               </a>
-              <a class="btn btn-warning button">
-                <span class="iconify" data-icon="mdi:eye" data-inline="false"></span>
-              </a>
             </td>
           </tr>
         `);
@@ -123,8 +120,6 @@ $(document).ready(function () {
       url: "loadById/" + userId,
       method: "GET",
       success: function (response) {
-        console.log("user", response);
-
         if (response == null) {
           $("#customModalLabel").text("Adicionando novo usuário");
 

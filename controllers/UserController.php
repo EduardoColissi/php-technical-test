@@ -1,11 +1,16 @@
 <?php
 
 class UserController extends RenderView  {
-    public function index() {
-        $users = new UserModel();
+    private $user;
+    
+    public function __construct() {
+        $this->user = new UserModel();
+    }
 
-        if(empty($users->fetchAll())) {
-            $users->createInitialData();
+    public function index() {
+
+        if(empty($this->user->fetchAll())) {
+            $this->user->createInitialData();
         }
 
          $this->loadView('header', [
@@ -14,7 +19,7 @@ class UserController extends RenderView  {
 
         $this->loadView('home', [
             'title' => 'Usuários',
-            'users' => $users->fetchAll()
+            'users' =>  $this->user->fetchAll()
         ]);
 
         $this->loadView('formModal', [
@@ -27,7 +32,6 @@ class UserController extends RenderView  {
     }
 
     public function add() {
-        $users = new UserModel();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $name = $_POST['name'];
@@ -35,7 +39,7 @@ class UserController extends RenderView  {
             $status = $_POST['status'];
             $admission_date = $_POST['admission_date'];
             
-            $users->create([
+             $this->user->create([
                 'name' => $name,
                 'email' => $email,
                 'status' => $status,
@@ -59,22 +63,16 @@ class UserController extends RenderView  {
     }
 
     public function load($name = '', $email = '') {
-        $users = new UserModel();
-        
         header('Content-Type: application/json');
-        echo json_encode($users->fetchAll($name, $email));
+        echo json_encode( $this->user->fetchAll($name, $email));
     }
 
     public function loadById($id) {
-        $users = new UserModel();
-        
         header('Content-Type: application/json');
-        echo json_encode($users->fetchById($id));
+        echo json_encode( $this->user->fetchById($id));
     }
 
     public function update($id) {
-        $users = new UserModel();
-
         if ($_SERVER["REQUEST_METHOD"] == "PUT") {  
             parse_str(file_get_contents("php://input"), $_PUT);
             $name = $_PUT['name'];
@@ -83,7 +81,7 @@ class UserController extends RenderView  {
             $admission_date = $_PUT['admission_date'];
             $updated = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
 
-            $users->update([
+             $this->user->update([
                 'id' => $id,
                 'name' => $name,
                 'email' => $email,
@@ -111,8 +109,7 @@ class UserController extends RenderView  {
     }
 
     public function delete($id) {
-        $users = new UserModel();
-        $users->delete($id);
+         $this->user->delete($id);
 
         $response = [
             'success' => true,
