@@ -1,19 +1,11 @@
 <?php
 
-class UserController {
+class UserController extends RenderView {
     public function index() {
-        echo 'Home';
-    }
-
-    public function testeComParametro($id) {
-        echo 'testeComParametro' . $id;
-    }
-
-    public function testeComQuery($id, $nome, $email, $senha){
-        echo 'testeComQuery:' . $id . $nome . $email . $senha;
-    }
-
-    public function testeAction() {
-        echo 'Load';
+        $users = new UserModel();
+        $this->loadView('home', [
+            'title' => 'Home',
+            'users' => $users->fetch()
+        ]);
     }
 }
