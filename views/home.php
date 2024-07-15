@@ -1,7 +1,7 @@
 
 <link href="assets/css/home.css"  rel="stylesheet">
 <div class="container">
-    <div class="row title-container">
+    <div class="row title-container mt-5">
         <div class="col-md-10">
             <h1><?php echo $title ?></h1>
         </div>
@@ -11,6 +11,12 @@
                 Adicionar
             </a>
         </div>
+    </div>
+    <div class="row customRow mt-3 mb-3">
+        <input class="form-control col-md-4" type="text" id="searchName" placeholder="Procurar pelo nome">
+        <input class="form-control col-md-4" type="text" id="searchEmail" placeholder="Procurar pelo e-mail">
+        <button id="searchButton" class="btn btn-primary col-md-1">Buscar</button>
+        <button id="cleanSearchButton" class="btn btn-primary col-md-1">Limpar</button>
     </div>
     
     <table class="table table-striped" id="usersTable">
@@ -32,12 +38,13 @@
                     <td scope="row"><?php echo $user['id']; ?></td>
                     <td><?php echo $user['name']; ?></td>
                     <td><?php echo $user['email']; ?></td>
-                    <td><?php echo $user['status']; ?></td>
-                    <td><?php echo $user['admission_date']; ?></td>
-                    <td><?php echo $user['updated']; ?></td>
-                    <td><?php echo $user['created']; ?></td>
+                    <td><?php echo $user['status'] == 0 ? "Pendente" : "Admitido"; ?></td>
+                    <td><?php echo DateTime::createFromFormat('Y-m-d', $user['admission_date'])->format('d/m/Y'); ?></td>
+                    <td><?php echo DateTime::createFromFormat('Y-m-d H:i:s', $user['updated'])->format('d/m/Y H:i:s'); ?></td>
+                    <td><?php echo DateTime::createFromFormat('Y-m-d H:i:s', $user['created'])->format('d/m/Y H:i:s'); ?></td>
+                   
                     <td>
-                        <a class="btn btn-primary button btn-edit-user" data-toggle="modal" data-target="#customModal" data-userid="<?php echo $user['id']; ?>">
+                        <a class="btn btn-success button btn-edit-user" data-toggle="modal" data-target="#customModal" data-userid="<?php echo $user['id']; ?>">
                             <span class="iconify" data-icon="mdi:pencil" data-inline="false"></span>
                         </a>
                         <a class="btn btn-danger button btn-delete-user" data-userid="<?php echo $user['id']; ?>">

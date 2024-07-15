@@ -58,11 +58,11 @@ class UserController extends RenderView  {
         }
     }
 
-    public function load() {
+    public function load($name = '', $email = '') {
         $users = new UserModel();
         
         header('Content-Type: application/json');
-        echo json_encode($users->fetchAll());
+        echo json_encode($users->fetchAll($name, $email));
     }
 
     public function loadById($id) {

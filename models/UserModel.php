@@ -6,8 +6,24 @@ class UserModel extends Database{
     public function __construct() {
         $this->pdo = $this->getConnection();
     }
-    public function fetchAll() {
-        $query = $this->pdo->query("SELECT * FROM users");
+
+    public function fetchAll($name = '', $email = '') {
+        $sql = "SELECT * FROM users WHERE 1=1";
+        $params = [];
+
+        if (!empty($name)) {
+            $sql .= " AND name LIKE :name";
+            $params[':name'] = '%' . $name . '%';
+        }
+
+        if (!empty($email)) {
+            $sql .= " AND email LIKE :email";
+            $params[':email'] = '%' . $email . '%';
+        }
+
+        $query = $this->pdo->prepare($sql);
+        $query->execute($params);
+
         if ($query->rowCount() > 0) {
             return $query->fetchAll(PDO::FETCH_ASSOC);
         } else {

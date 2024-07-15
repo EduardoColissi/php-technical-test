@@ -8,5 +8,6 @@
     <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="assets/js/formModal.js"></script>
+    <script src="assets/js/sweetalert.js"></script>
 </head>
 <body>
